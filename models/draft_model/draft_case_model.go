@@ -88,4 +88,4 @@ type DraftCaseModel struct {
 	UpdatedAt            null.Time   `json:"updated_at"`
 }
 
-var emptyDetail DraftCaseModel
+var EmptyDraft DraftCaseModel
