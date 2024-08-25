@@ -55,10 +55,10 @@ func defaultPgSql() pgSqlConfig {
 	}
 }
 
-func (p *pgSqlConfig) loadFromEnv() {
+func (p *pgSqlConfig) loadFromEnv(dbName string) {
 	loadEnvString("POSTGRES_HOST", &p.Host)
 	loadEnvUint("POSTGRES_PORT", &p.Port)
-	loadEnvString("POSTGRES_DB_NAME", &p.Database)
+	loadEnvString(dbName, &p.Database)
 	loadEnvString("POSTGRES_SSLMODE", &p.SslMode)
 	loadEnvString("POSTGRES_USERNAME", &p.User)
 	loadEnvString("POSTGRES_PASSWORD", &p.Password)
@@ -89,23 +89,23 @@ func (l *listenConfig) loadFromEnv() {
 
 type config struct {
 	Listen        listenConfig `json:"listen"`
-	PgSql         pgSqlConfig  `json:"pgsql"`
+	CrawlerDB     pgSqlConfig  `json:"crawler_db"`
+	BeneficialDB  pgSqlConfig  `json:"beneficial_db"`
 	BackendApiKey string       `json:"api_key"`
 	ServerSalt    string       `json:"salt"`
 }
 
 func (c *config) loadFromEnv() {
 	c.Listen.loadFromEnv()
-	c.PgSql.loadFromEnv()
-	loadEnvString("API_KEY", &c.BackendApiKey)
-	loadEnvString("SALT", &c.ServerSalt)
+	c.CrawlerDB.loadFromEnv("POSTGRES_CRAWLER_DB_NAME")
+	c.BeneficialDB.loadFromEnv("POSTGRES_BENEFICIAL_OWNERSHIP_DB_NAME")
+
 }
 
 func defaultConfig() config {
 	return config{
-		Listen:        defaultListenConfig(),
-		PgSql:         defaultPgSql(),
-		BackendApiKey: "",
-		ServerSalt:    "",
+		Listen:       defaultListenConfig(),
+		CrawlerDB:    defaultPgSql(),
+		BeneficialDB: defaultPgSql(),
 	}
 }

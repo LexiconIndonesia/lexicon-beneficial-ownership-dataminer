@@ -1,13 +1,13 @@
-module lexicon/go-template
+module lexicon/lexicon-beneficial-ownership-dataminer
 
 go 1.21.3
 
 require (
-	github.com/go-chi/chi v1.5.5
-	github.com/go-chi/cors v1.2.1
 	github.com/golang-module/carbon/v2 v2.3.12
+	github.com/guregu/null v4.0.0+incompatible
 	github.com/jackc/pgx/v5 v5.6.0
 	github.com/joho/godotenv v1.5.1
+	github.com/oklog/ulid/v2 v2.1.0
 	github.com/rs/zerolog v1.31.0
 )
 

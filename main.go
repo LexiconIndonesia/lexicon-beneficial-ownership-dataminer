@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"lexicon/go-template/module"
+	"lexicon/lexicon-beneficial-ownership-dataminer/dataminer"
 
 	"github.com/golang-module/carbon/v2"
 
@@ -32,22 +32,21 @@ func main() {
 
 	// INITIATE DATABASES
 	// PGSQL
-	pgsqlClient, err := pgxpool.New(ctx, cfg.PgSql.ConnStr())
+	crawlerDb, err := pgxpool.New(ctx, cfg.CrawlerDB.ConnStr())
 
 	if err != nil {
 		log.Error().Err(err).Msg("Unable to connect to PGSQL Database")
 	}
-	defer pgsqlClient.Close()
+	defer crawlerDb.Close()
 
-	module.SetDatabase(pgsqlClient)
+	dataminer.SetCrawlerDB(crawlerDb)
 
-	// INITIATE SERVER
-	server, err := NewAppHttpServer(cfg)
-
+	beneficialDb, err := pgxpool.New(ctx, cfg.BeneficialDB.ConnStr())
 	if err != nil {
-		log.Error().Err(err).Msg("Failed to start the server")
+		log.Error().Err(err).Msg("Unable to connect to PGSQL Database")
 	}
+	defer beneficialDb.Close()
 
-	server.setupRoute()
-	server.start()
+	dataminer.SetBeneficialDB(beneficialDb)
+
 }
