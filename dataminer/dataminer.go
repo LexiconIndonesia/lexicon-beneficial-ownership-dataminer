@@ -1,9 +1,11 @@
 package dataminer
 
 import (
-	draftcasemodel "lexicon/lexicon-beneficial-ownership-dataminer/models/draft_model"
+	"lexicon/lexicon-beneficial-ownership-dataminer/models"
 )
 
-type Dataminer interface {
-	MineMetadata() (draftcasemodel.DraftCaseModel, error)
+type Dataminer[T any] interface {
+	Start()
+	mineMetadata(e *[]models.Extraction[T]) error
+	getCurrentExtractions() ([]models.Extraction[T], error)
 }

@@ -1,14 +1,28 @@
 package dataminer
 
-import draftcasemodel "lexicon/lexicon-beneficial-ownership-dataminer/models/draft_model"
+import (
+	"lexicon/lexicon-beneficial-ownership-dataminer/models"
+	indonesiasupremecourtmodel "lexicon/lexicon-beneficial-ownership-dataminer/models/indonesia_supreme_court_model"
+)
 
 type IndonesiaSupremeCourtDataminer struct {
 }
 
-func NewIndonesiaSupremeCourtDataminer() Dataminer {
-	return IndonesiaSupremeCourtDataminer{}
+// Start implements Dataminer.
+func (i IndonesiaSupremeCourtDataminer) Start() {
+	panic("unimplemented")
 }
 
-func (d IndonesiaSupremeCourtDataminer) MineMetadata() (draftcasemodel.DraftCaseModel, error) {
-	return draftcasemodel.EmptyDraft, nil
+// getCurrentExtractions implements Dataminer.
+func (i IndonesiaSupremeCourtDataminer) getCurrentExtractions() ([]models.Extraction[indonesiasupremecourtmodel.Metadata], error) {
+	panic("unimplemented")
+}
+
+// mineMetadata implements Dataminer.
+func (i IndonesiaSupremeCourtDataminer) mineMetadata(e *[]models.Extraction[indonesiasupremecourtmodel.Metadata]) error {
+	panic("unimplemented")
+}
+
+func NewIndonesiaSupremeCourtDataminer() Dataminer[indonesiasupremecourtmodel.Metadata] {
+	return IndonesiaSupremeCourtDataminer{}
 }

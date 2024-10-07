@@ -1,4 +1,4 @@
-package dataminer
+package common
 
 import (
 	"errors"

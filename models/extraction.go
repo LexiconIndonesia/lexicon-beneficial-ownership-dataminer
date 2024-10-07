@@ -2,6 +2,7 @@ package models
 
 import (
 	indonesiasupremecourtmodel "lexicon/lexicon-beneficial-ownership-dataminer/models/indonesia_supreme_court_model"
+	singaporesupremecourtmodel "lexicon/lexicon-beneficial-ownership-dataminer/models/singapore_supreme_court_model"
 
 	"github.com/golang-module/carbon/v2"
 	"github.com/guregu/null"
@@ -30,5 +31,18 @@ func NewIndonesiaSupremeCourtExtraction() Extraction[indonesiasupremecourtmodel.
 		CreatedAt:     carbon.Now().ToDateTimeStruct(),
 		UpdatedAt:     carbon.Now().ToDateTimeStruct(),
 		Language:      "id",
+	}
+}
+func NewSingaporeSupremeCourtExtraction() Extraction[singaporesupremecourtmodel.Metadata] {
+	return Extraction[singaporesupremecourtmodel.Metadata]{
+		Id:            "",
+		UrlFrontierId: "",
+		SiteContent:   null.StringFrom(""),
+		ArtifactLink:  null.StringFrom(""),
+		RawPageLink:   null.StringFrom(""),
+		Metadata:      singaporesupremecourtmodel.EmptyMetadata,
+		CreatedAt:     carbon.Now().ToDateTimeStruct(),
+		UpdatedAt:     carbon.Now().ToDateTimeStruct(),
+		Language:      "en",
 	}
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"lexicon/lexicon-beneficial-ownership-dataminer/common"
 	"lexicon/lexicon-beneficial-ownership-dataminer/dataminer"
 
 	"github.com/golang-module/carbon/v2"
@@ -39,7 +40,7 @@ func main() {
 	}
 	defer crawlerDb.Close()
 
-	dataminer.SetCrawlerDB(crawlerDb)
+	common.SetCrawlerDB(crawlerDb)
 
 	beneficialDb, err := pgxpool.New(ctx, cfg.BeneficialDB.ConnStr())
 	if err != nil {
@@ -47,6 +48,9 @@ func main() {
 	}
 	defer beneficialDb.Close()
 
-	dataminer.SetBeneficialDB(beneficialDb)
+	common.SetBeneficialDB(beneficialDb)
+
+	// START WORKERS
+	dataminer.NewSingaporeSupremeCourtDataminer().Start()
 
 }
